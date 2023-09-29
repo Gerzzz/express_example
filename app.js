@@ -1,62 +1,58 @@
-//1.Используйте ES6 синтаксис 
-//2.Добавьте защиту от основных уязвимостей, связанных с HTTP заголовками безопасности
-//3.Так как всё, для чего в коде используется body parser теперь есть в express, можно перестать использовать body parser и убрать его из кода
-//4.Улучшите читаемость кода - отсортируйте импорты по алфавиту, удалите неиспользуемый закоментированный код, переведите комментарии на русский
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var routes = require('./routes/');
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import helmet from 'helmet';
+import logger from 'morgan';
+import path from 'path';
+import routes from './routes/';
 
-var app = express();
+const app = express();
 
-// view engine setup
+// Используем middleware Helmet для добавления заголовков безопасности
+app.use(helmet());
+
+// Устанавливаем настройки для движка представлений
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+// Упрощение middleware Body Parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+// Обработчик ошибки 404 (после всех маршрутов)
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-
-// error handlers
-
-// development error handler
-// will print stacktrace
+// Обработчики ошибок
+// Обработчик ошибок в режиме разработки
+// Отправляем стек ошибки на клиентский интерфейс
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err
+      error: err,
     });
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+// Обработчик ошибок в продакшн режиме
+// Не раскрываем стек ошибки клиенту
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: {},
   });
 });
 
-module.exports = app;
-
+export default app;
