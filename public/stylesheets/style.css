@@ -83,7 +83,7 @@ section {
 body {
   font: 62.5%/1.5 Helvetica, Arial, "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;
   text-align: center;
-  background: #000;     /* 1. Удалить черный фон, чтобы везде кроме заголовка фон был белым */
+  background: #ffffff;     /* 1. Удалить черный фон, чтобы везде кроме заголовка фон был белым */
 }
 #wrapper {
   width: 920px;
@@ -209,7 +209,7 @@ acronym {
 /* Header
 -----------------------------------------------------------------------------*/
 header {
-  background: #f00060;       /* 2. Сменить цветовую схему на чёрный, жёлтый и белый, тут поменять цвет с розовго на жёлтый */
+  background: #fdc727;       /* 2. Сменить цветовую схему на чёрный, жёлтый и белый, тут поменять цвет с розовго на жёлтый */
 }
 header nav {
   width: 960px;
@@ -225,13 +225,14 @@ header nav ul {
 header nav ul li {
   display: inline;           /* 3. Сделать кнопки в заголовке слева, а не справа */
   margin-left: 1%;
+  float: right;
 }
 header nav ul li a {
-  background: #fc9200;      /* 2. Сменить цветовую схему на чёрный, жёлтый и белый, тут поменять цвет с жёлтого на чёрный */
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;         /* 4. Сделать кнопки менее округлыми */
-  -o-border-radius: 15px;
-  border-radius: 15px;
+  background: #000000;      /* 2. Сменить цветовую схему на чёрный, жёлтый и белый, тут поменять цвет с жёлтого на чёрный */
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;         /* 4. Сделать кнопки менее округлыми */
+  -o-border-radius: 5px;
+  border-radius: 5px;
   display: inline-block;
   padding: 5px 15px 6px;
   color: #fff;
